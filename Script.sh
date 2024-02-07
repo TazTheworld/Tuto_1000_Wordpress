@@ -36,7 +36,7 @@ cp -a /tmp/wordpress/. /var/www/html/wordpress
 chown -R www-data:www-data /var/www/html/wordpress
 
 # Connexion à MySQL pour créer la base de données WordPress
-echo mysql -u root -p Nostale159951
+mysql -u root -p Nostale159951
 
 CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
