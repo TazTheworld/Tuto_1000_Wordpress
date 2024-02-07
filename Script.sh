@@ -104,13 +104,6 @@ for ((i=2;i<=1000;i++)); do
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
         sed -i "s/wordpress/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
 
-        # Création de la base de données WordPress
-        echo "CREATE DATABASE wordpress$i;" > /tmp/wordpress_database.sql
-        echo "USE wordpress$i;" >> /tmp/wordpress_database.sql
-        echo "source /tmp/wordpress_database.sql;" >> /tmp/wordpress_database.sql
-        echo "UPDATE wp_options SET option_value = 'http://161.97.82.174/wordpress$i/' WHERE option_id = 1 OR option_id = 2;" >> /tmp/wordpress_database.sql
-
-        mysql -u root -p < /tmp/wordpress_database.sql
         
     fi
 done
