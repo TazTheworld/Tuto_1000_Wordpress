@@ -65,10 +65,6 @@ sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
 # Redémarrage de PHP-FPM
 systemctl restart php7.4-fpm
 
-# Exécuter la commande mysql avec le mot de passe
-
-
-
 # Exécution des commandes MySQL avec le mot de passe automatique
 mysql --user="$nom_utilisateur" --password="$motdepasse" <<EOF
 USE mysql;
@@ -86,8 +82,8 @@ cat <<EOF > /phpmyadmin.conf
 </Directory>
 EOF
 
-# Activation du virtualhost pour phpMyAdmin et redémarrage d'Apache
-a2ensite /etc/apache2/sites-available/phpmyadmin.config
+cd /etc/apache2/sites-available/
+a2ensite /phpmyadmin.config
 
 systemctl restart apache2
 
