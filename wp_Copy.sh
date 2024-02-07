@@ -2,7 +2,7 @@ echo "========== Informations nécessaires =========="
 echo "Mot de passe de la base de données ( et du VPS par défaut ) :"
 read Input_Mot_passe_DB
 echo "Faire la copie d'un WordPress déjà installé (y/n) ?"
-read Input_faire_copy_installé
+read Input_faire_copy_instal
 echo "Le nom de l'utilisateur admin à créer sur les WordPress : "
 read Input_nom_utilisateur_admin
 echo "L'email de l'utilisateur admin : "
