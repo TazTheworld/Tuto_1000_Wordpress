@@ -82,6 +82,8 @@ systemctl restart apache2
 
 ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 
+mysqldump -u root -p wordpress > /tmp/wordpress_database.sql
+
 # Création de 1000 instances de WordPress
 for ((i=2;i<=1000;i++)); do
     if [ ! -d "/var/www/html/wordpress$i" ]; then
@@ -99,7 +101,14 @@ for ((i=2;i<=1000;i++)); do
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/wordpress.conf
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
         sed -i "s/wordpress/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
-        a2ensite wordpress$i.conf
+
+        mysql -u root -p <<EOF
+CREATE DATABASE wordpress$i;
+USE wordpress$i;
+source /tmp/wordpress_database.sql;
+UPDATE wp_options SET option_value = 'http://{ip}/wordpress$i/' WHERE option_id = 1 OR option_id = 2;
+EOF
+        # Redémarrer Apache après chaque importation
         systemctl restart apache2
     fi
 done
