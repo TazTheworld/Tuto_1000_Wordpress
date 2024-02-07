@@ -43,15 +43,15 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-sudo -u USER -i -- wp core download --allow-root
+sudo -u www-data -i -- wp core download --allow-root
 
-sudo -u USER -i -- wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci --allow-root
+sudo -u www-data -i -- wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci --allow-root
 
-sudo -u USER -i -- wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB --allow-root
+sudo -u www-data -i -- wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB --allow-root
 
-sudo -u USER -i -- wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin --allow-root
+sudo -u www-data -i -- wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin --allow-root
 
-sudo -u USER -i -- wp post delete $(wp post list --post_type=page --format=ids --post_status=publish) --force --allow-root
+sudo -u www-data -i -- wp post delete $(wp post list --post_type=page --format=ids --post_status=publish) --force --allow-root
 
 
 
