@@ -64,7 +64,7 @@ UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
 FLUSH PRIVILEGES;
 EOF
 
-apt-get install phpmyadmin | echo "y" | apache2 < <(echo "no")
+apt-get install phpmyadmin 
 
 # Configuration de phpMyAdmin dans Apache
 cat <<EOF > /etc/apache2/sites-available/phpmyadmin.conf
