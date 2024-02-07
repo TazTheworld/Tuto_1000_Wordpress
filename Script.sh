@@ -36,9 +36,18 @@ if [ ! -d "/tmp/wordpress/wp-content/upgrade" ]; then
 fi
 cp -a /tmp/wordpress/. /var/www/html/wordpress;
 chown -R www-data:www-data /var/www/html/wordpress;
+cp -r /var/www/html/wordpress/ /var/www/html/wordpress2;
+rm -rf /var/www/html/wordpress2/wp-content/plugins/;
+rm -rf /var/www/html/wordpress2/wp-content/themes/;
+ln -s /var/www/html/wordpress/wp-content/plugins/ /var/www/html/wordpress2/wp-content/;
+ln -s /var/www/html/wordpress/wp-content/themes/ /var/www/html/wordpress2/wp-content/;
 
 # Exécuter la commande mysql avec le mot de passe
-mysql -u root -p <<EOF
+motdepasse="Nostale159951"
+nom_utilisateur="root"
+
+# Exécution des commandes MySQL avec le mot de passe automatique
+mysql --user="$nom_utilisateur" --password="$motdepasse" <<EOF
 CREATE DATABASE IF NOT EXISTS wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 EOF
 
@@ -58,7 +67,10 @@ systemctl restart php7.4-fpm
 
 # Exécuter la commande mysql avec le mot de passe
 
-mysql -u root -p <<EOF
+motdepasse="Nostale159951"
+
+# Exécution des commandes MySQL avec le mot de passe automatique
+mysql --user="$nom_utilisateur" --password="$motdepasse" <<EOF
 USE mysql;
 UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
 FLUSH PRIVILEGES;
