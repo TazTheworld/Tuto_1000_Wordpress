@@ -54,7 +54,6 @@ sed -i '/upload_max_filesize/c\upload_max_filesize = 200M' /etc/php/7.4/apache2/
 sed -i '/max_file_uploads/c\max_file_uploads = 2000' /etc/php/7.4/apache2/php.ini
 sed -i '/memory_limit/c\memory_limit = 128M' /etc/php/7.4/apache2/php.ini
 sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
-
 # Redémarrage de PHP-FPM
 systemctl restart php7.4-fpm
 
@@ -106,11 +105,13 @@ for ((i=2;i<=1000;i++)); do
 CREATE DATABASE wordpress$i;
 USE wordpress$i;
 source /tmp/wordpress_database.sql;
-UPDATE wp_options SET option_value = 'http://{ip}/wordpress$i/' WHERE option_id = 1 OR option_id = 2;
-EOF
-        # Redémarrer Apache après chaque importation
-        systemctl restart apache2
+UPDATE wp_options SET option_value = 'http://161.97.82.174/wordpress$i/' WHERE option_id = 1 OR option_id = 2;
+EOF        # Redémarrer Apache après chaque importation
+        
     fi
 done
+
+a2ensite wordpress*.config;
+systemctl restart apache2
 
 echo "FINISH"
