@@ -67,7 +67,7 @@ systemctl restart php7.4-fpm
 
 # Exécuter la commande mysql avec le mot de passe
 
-motdepasse="Nostale159951"
+
 
 # Exécution des commandes MySQL avec le mot de passe automatique
 mysql --user="$nom_utilisateur" --password="$motdepasse" <<EOF
@@ -78,8 +78,9 @@ EOF
 
 apt-get install phpmyadmin 
 
+cd /etc/apache2/sites-available/
 # Configuration de phpMyAdmin dans Apache
-cat <<EOF > /etc/apache2/sites-available/phpmyadmin.conf
+cat <<EOF > /phpmyadmin.conf
 <Directory /var/www/html/phpmyadmin/>
     AllowOverride All
 </Directory>
@@ -92,7 +93,7 @@ systemctl restart apache2
 
 ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 
-mysqldump -u root -p wordpress > /tmp/wordpress_database.sql
+mysqldump --user="$nom_utilisateur" --password="$motdepasse" wordpress > /tmp/wordpress_database.sql
 
 # Création de 1000 instances de WordPress
 for ((i=2;i<=1000;i++)); do
