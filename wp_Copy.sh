@@ -30,6 +30,8 @@ chmod +x wp-cli.phar
 
 sudo mv wp-cli.phar /usr/local/bin/wp
 
+wp plugin install --activate
+
 wp cli update
 
 wp --info
@@ -43,7 +45,7 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-cd /tmp/
+cd /home/wp-cli/
 
 wp core download --allow-root
 
