@@ -1,0 +1,189 @@
+ssh root@(ip)
+mettre le mot de passe + entré ( le mdp reste invicible )
+
+***********************************************************
+
+apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip unrar;
+systemctl restart apache2;
+
+nano /etc/apache2/site-available/wordpress.conf;
+
+************************************************************
+
+<Directory /var/www/html/wordpress/>
+allowOverride All
+</Directory>
+
+*************************************************************
+
+CMD + X pour sortir ( Y pour sauvegarder )
+
+*************************************************************
+
+cd /etc/apache2/site-available/;
+
+a2ensite wordpress.conf;
+systemctl restart apache2;
+
+*************************************************************
+
+cd /tmp;
+curl -O https:.//wordpress.org/latest.tar.gz;
+tar xzvf latest.tar.gz;
+touch /tmp/wordpress/.htaccess;
+cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php;
+mkdir /tmp/wordpress/wp-content/upgrade;
+cp -a /tmp/wordpress/. /var/www/html/wordpress;
+chown -R www-data:www-data /var/www/html/wordpress;
+
+*************************************************************
+
+mysql -u root -p ( mot de passe de la base de donnée )
+
+*************************************************************
+
+CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+*************************************************************
+
+exit pour sortir
+
+*************************************************************
+
+nano /var/www/html/wordpress/wp-config.php
+
+*************************************************************
+
+corriger le nom base de donnée, user bdd, pwd bdd
+
+*************************************************************
+
+aller sur {IP}/wordpress/wp-admin/install.php
+
+*************************************************************
+
+se connecter à wordpress
+
+installer les plugins / thémes 
+et préparer une stracutre de wordpress
+
+nano /etc/php/7.4/fpm/php.init 
+
+- chercher file_uploads doit étre =On
+- file_uploads_max = 200M
+- max_file_uploads = 200M
+- memory_limit = 128M
+- max_input_time = 60000
+
+Ctrl + x
+
+/etc/init.d/php7.4-fpm restart
+
+*************************************************************
+
+copier-coller tout d'un coup :
+
+cp -r /var/www/html/wordpress/ /var/www/html/wordpress2;
+
+rm -rf /var/www/html/wordpress2/wp-content/plugins/;
+
+rm -rf /var/www/html/wordpress2/wp-content/themes/; 
+
+ln -s /var/www/html/wordpress/wp-content/plugins/ /var/www/html/wordpress2/wp-content/; (boucle)
+
+ln -s /var/www/html/wordpress/wp-content/themes/ /var/www/html/wordpress2/wp-content/; (boucle)
+
+cp -r /var/www/html/wordpress2/ /var/www/html/wordpress3; (boucle)
+
+jusqu'a 1000 wordpress d'installer 
+
+chown -R www-data:www-data /var/www/html/;
+
+sed -i 's/wordpress2/g' /var/www/html/wordpress2/wp-config.php; (boucle)
+
+*************************************************************
+
+installer phpmyadmin : 
+
+mysql -u root -p mettre le password
+
+*************************************************************
+
+USE mysql;
+UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
+FLUSH PRIVILEGES;
+
+*************************************************************
+
+exit
+
+*************************************************************
+
+apt-get install phpmyadmin
+Y
+apache2
+no
+entrée
+nano /etc/apache2/sites-available/phpmyadmin.conf
+
+*************************************************************
+
+<Directory /var/www/html/phpmyadmin/>
+AllowOverride All
+</Directory>
+
+*************************************************************
+
+CMD + x
+
+*************************************************************
+
+a2ensite /etc/apache2/sites-available/phpmyadmin.config
+systemctl restart apache2
+
+ln -s /user/share/phpmyadmin /var/www/html/phpmyadmin
+
+ aller sur : {IP}/phpmyadmin se connecter
+ aller sur : {IP}/phpmyadmin/db_operations.php?db=wordpress
+
+ copier : wordpress1 puis 2 puis 3 etc ...
+
+*************************************************************
+
+aller sur : 
+
+{IP}/phpmyadmin/server_sql.php
+
+*************************************************************
+
+UPDATE 'wordpress2'.'wp_options' SET 'option_value' = 'http://{ip}/wordpress2/' WHERE 'wp_options'.'option_id' = 1 OR 'wp_options'.'option_id' = 2;
+UPDATE 'wordpress3'.'wp_options' SET 'option_value' = 'http://{ip}/wordpress3/' WHERE 'wp_options'.'option_id' = 1 OR 'wp_options'.'option_id' = 2;
+
+ETC ...
+ 
+*************************************************************
+
+cp /etc/apache2/sites-available/wordpress.conf /etc/apache2/sites-available/wordpress2.conf;
+cp /etc/apache2/sites-available/wordpress.conf /etc/apache2/sites-available/wordpress3.conf;
+
+ETC ... 
+
+*************************************************************
+
+sed -i 's/wordpress2/g' /etc/apache2/sites-available/wordpress2.config; (boucle)
+sed -i 's/wordpress3/g' /etc/apache2/sites-available/wordpress3.config; (boucle)
+
+ETC ...
+
+*************************************************************
+
+a2ensite wordpress*.config;
+systemctl restart apache2;
+
+*************************************************************
+
+FINISH
+
+
+
+
