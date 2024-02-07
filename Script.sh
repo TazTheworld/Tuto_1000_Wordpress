@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip unrar
-echo "y"
+y
 systemctl restart apache2
 
 
@@ -26,17 +26,20 @@ a2enmod rewrite
 systemctl restart apache2
 
 
-cd /tmp
-curl -O https://wordpress.org/latest.tar.gz
-tar xzvf latest.tar.gz
-touch /tmp/wordpress/.htaccess
-cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php
-mkdir /tmp/wordpress/wp-content/upgrade
-cp -a /tmp/wordpress/. /var/www/html/wordpress
-chown -R www-data:www-data /var/www/html/wordpress
+cd /tmp;
+curl -O https://wordpress.org/latest.tar.gz;
+tar xzvf latest.tar.gz;
+touch /tmp/wordpress/.htaccess;
+cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php;
+mkdir /tmp/wordpress/wp-content/upgrade;
+cp -a /tmp/wordpress/. /var/www/html/wordpress;
+chown -R www-data:www-data /var/www/html/wordpress;
 
 # Connexion à MySQL pour créer la base de données WordPress
-mysql -u root -p Nostale159951  
+motdepasse="Nostale159951"
+
+# Exécuter la commande mysql avec le mot de passe
+mysql -u root -p"${motdepasse}"
 
 CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
@@ -56,7 +59,8 @@ sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
 # Redémarrage de PHP-FPM
 systemctl restart php7.4-fpm
 
-echo mysql -u root -p Nostale159951
+# Exécuter la commande mysql avec le mot de passe
+mysql -u root -p"${motdepasse}"
 
 USE mysql;
 UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
