@@ -21,8 +21,10 @@ CMD + X pour sortir ( Y pour sauvegarder )
 *************************************************************
 
 cd /etc/apache2/site-available/;
-
 a2ensite wordpress.conf;
+systemctl restart apache2;
+
+a2enmod rewrite;
 systemctl restart apache2;
 
 *************************************************************
