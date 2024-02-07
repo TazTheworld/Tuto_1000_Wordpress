@@ -47,11 +47,11 @@ cd /tmp/
 
 wp core download --allow-root
 
-wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB --allow-root
+wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
 
-wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci --allow-root
+wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci
 
-wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin --allow-root
+wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
 
 
 
