@@ -37,16 +37,10 @@ fi
 cp -a /tmp/wordpress/. /var/www/html/wordpress;
 chown -R www-data:www-data /var/www/html/wordpress;
 
-motdepasse="Nostale159951"
-
 # Exécuter la commande mysql avec le mot de passe
-echo "$motdepasse" | mysql -u root -p
-
-Nostale159951
-
-CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-
-exit
+mysql -u root -p <<EOF
+CREATE DATABASE IF NOT EXISTS wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+EOF
 
 # Édition du fichier de configuration de WordPress
 sed -i "s/database_name_here/wordpress/g" /var/www/html/wordpress/wp-config.php
@@ -63,15 +57,12 @@ sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
 systemctl restart php7.4-fpm
 
 # Exécuter la commande mysql avec le mot de passe
-echo "$motdepasse" | mysql -u root -p
 
-Nostale159951
-
+mysql -u root -p <<EOF
 USE mysql;
 UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
 FLUSH PRIVILEGES;
-
-exit
+EOF
 
 apt-get install phpmyadmin | echo "y" | apache2 < <(echo "no")
 
