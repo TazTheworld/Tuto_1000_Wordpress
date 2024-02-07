@@ -93,8 +93,6 @@ systemctl restart apache2
 
 ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 
-mysqldump --user="$nom_utilisateur" --password="$motdepasse" wordpress > /tmp/wordpress_database.sql
-
 # Création de 1000 instances de WordPress
 for ((i=2;i<=1000;i++)); do
     if [ ! -d "/var/www/html/wordpress$i" ]; then
