@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip unrar
-y
+
 systemctl restart apache2
 
 
@@ -92,22 +92,26 @@ for ((i=2;i<=1000;i++)); do
         chown -R www-data:www-data /var/www/html/wordpress$i
 
         # Modification des liens symboliques et des configurations
-        ln -s /var/www/html/wordpress/wp-content/plugins/ /var/www/html/wordpress$i/wp-content/
-        ln -s /var/www/html/wordpress/wp-content/themes/ /var/www/html/wordpress$i/wp-content/
+        if [ ! -e "/var/www/html/wordpress$i/wp-content/plugins" ]; then
+            ln -s /var/www/html/wordpress/wp-content/plugins/ /var/www/html/wordpress$i/wp-content/
+        fi
+        if [ ! -e "/var/www/html/wordpress$i/wp-content/themes" ]; then
+            ln -s /var/www/html/wordpress/wp-content/themes/ /var/www/html/wordpress$i/wp-content/
+        fi
 
         # Modification des fichiers de configuration
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/wordpress.conf
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
         sed -i "s/wordpress/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
 
+        # Création de la base de données WordPress
         echo "CREATE DATABASE wordpress$i;" > /tmp/wordpress_database.sql
         echo "USE wordpress$i;" >> /tmp/wordpress_database.sql
         echo "source /tmp/wordpress_database.sql;" >> /tmp/wordpress_database.sql
         echo "UPDATE wp_options SET option_value = 'http://161.97.82.174/wordpress$i/' WHERE option_id = 1 OR option_id = 2;" >> /tmp/wordpress_database.sql
 
         mysql -u root -p < /tmp/wordpress_database.sql
-
-        echo "wordpress$i"
+        
     fi
 done
 
