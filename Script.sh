@@ -37,16 +37,12 @@ fi
 cp -a /tmp/wordpress/. /var/www/html/wordpress;
 chown -R www-data:www-data /var/www/html/wordpress;
 
-# Connexion à MySQL pour créer la base de données WordPress
 motdepasse="Nostale159951"
 
-mysql -u root -p <<EOF
-$motdepasse
-CREATE DATABASE IF NOT EXISTS Nostale159951;
-USE Nostale159951;
+# Exécuter la commande mysql avec le mot de passe
+echo "$motdepasse" | mysql -u root -p
 
-# Vos autres commandes MySQL ici
-EOF
+Nostale159951
 
 CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
@@ -66,13 +62,10 @@ sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
 # Redémarrage de PHP-FPM
 systemctl restart php7.4-fpm
 
-mysql -u root -p <<EOF
-$motdepasse
-CREATE DATABASE IF NOT EXISTS Nostale159951;
-USE Nostale159951;
+# Exécuter la commande mysql avec le mot de passe
+echo "$motdepasse" | mysql -u root -p
 
-# Vos autres commandes MySQL ici
-EOF
+Nostale159951
 
 USE mysql;
 UPDATE user SET plugin='mysql_native_password' WHERE User ='root';
