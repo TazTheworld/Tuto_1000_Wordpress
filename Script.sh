@@ -97,7 +97,7 @@ ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 for ((i=2;i<=1000;i++)); do
     if [ ! -d "/var/www/html/wordpress$i" ]; then
         # Création de copies de WordPress
-        cp -r /var/www/html/wordpress/ /var/www/html/wordpress$i
+        cp -r /var/www/html/wordpress2/ /var/www/html/wordpress$i
 
         # Modification des autorisations
         chown -R www-data:www-data /var/www/html/wordpress$i
