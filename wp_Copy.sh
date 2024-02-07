@@ -47,13 +47,13 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-wp core download --locale=fr_FR
+wp core download --locale=fr_FR --allow-root
 
-wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
+wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB --allow-root
 
-wp db create 
+wp db create --allow-root
 
-wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
+wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin --allow-root
 
 
 
