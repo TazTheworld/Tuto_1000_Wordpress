@@ -115,7 +115,7 @@ for ((i=2;i<=1000;i++)); do
         sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
         sed -i "s/wordpress/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
 
-        
+        echo "wordpress$i"
     fi
 done
 
