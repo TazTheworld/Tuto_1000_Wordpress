@@ -47,12 +47,12 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-wp core download
-wp core config --dbname=wordpress --dbuser=root --dbpass=root --dbhost=localhost --dbprefix=whebfubwef_ --extra-php <<PHP
-define( 'WP_DEBUG', true );
-define( 'WP_DEBUG_LOG', true );
+wp core download --allow-root
+wp core config --dbname=wordpress --dbuser=root --dbpass=root --dbhost=localhost --dbprefix=whebfubwef_ --extra-php <<PHP --allow-root
+define( 'WP_DEBUG', true ) 
+define( 'WP_DEBUG_LOG', true )
 PHP
-wp db create
+wp db create --allow-root
 
 
 
