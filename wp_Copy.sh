@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "========== Informations nécessaires =========="
 echo "Mot de passe de la base de données ( et du VPS par défaut ) :"
 read Input_Mot_passe_DB
@@ -45,13 +47,11 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-cd /home/wp-cli/
-
-wp core download --allow-root
+wp core download --locale=fr_FR
 
 wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
 
-wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci
+wp db create 
 
 wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
 
