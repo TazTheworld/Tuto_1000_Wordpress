@@ -43,15 +43,15 @@ apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl ph
 
 systemctl restart apache2
 
-wp core download 
+sudo -u USER -i -- wp core download 
 
-wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci
+sudo -u USER -i -- wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci
 
-wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
+sudo -u USER -i -- wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
 
-wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
+sudo -u USER -i -- wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
 
-wp post delete $(wp post list --post_type=page --format=ids --post_status=publish) --force
+sudo -u USER -i -- wp post delete $(wp post list --post_type=page --format=ids --post_status=publish) --force
 
 
 
