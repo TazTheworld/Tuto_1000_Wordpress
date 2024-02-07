@@ -61,16 +61,6 @@ EOF
 a2ensite phpmyadmin.conf
 systemctl restart apache2
 
-# Navigation dans phpMyAdmin pour créer les bases de données WordPress
-echo "Allez sur : {IP}/phpmyadmin et connectez-vous"
-echo "Créez une nouvelle base de données pour WordPress et nommez-la 'wordpress'"
-
-# Navigation dans phpMyAdmin pour mettre à jour les URL des sites WordPress
-echo "Allez sur : {IP}/phpmyadmin et connectez-vous"
-echo "Cliquez sur la base de données 'wordpress' créée précédemment"
-echo "Cliquez sur l'onglet 'SQL'"
-echo "Copiez-collez les commandes SQL fournies dans la section correspondante du script"
-
 # Création de 1000 instances de WordPress
 for ((i=2;i<=1000;i++)); do
     # Création de copies de WordPress
