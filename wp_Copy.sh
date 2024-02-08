@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "========== Informations nécessaires =========="
 read -p "Mot de passe de la base de données ( et du VPS par défaut ) : " Input_Mot_passe_DB
 read -p "Le nom de l'utilisateur admin à créer sur les WordPress : " Input_nom_utilisateur_admin
@@ -45,16 +47,26 @@ systemctl restart apache2
 a2enmod rewrite
 systemctl restart apache2
 
+<<<<<<< HEAD
 
 cd 
+=======
+wp core download
+wp core config --dbname=mydbname --dbuser=mydbuser --dbpass=mydbpass --dbhost=localhost --dbprefix=whebfubwef_ --extra-php <<PHP
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+PHP
+wp db create
+wp core install --url=http://siteurl.com --title=SiteTitle --admin_user=username --admin_password=mypassword --admin_email=my@email.com
+>>>>>>> 51e891ed69b2394437d88828209b01d31c3c6a35
 
-wp core download --allow-root
+wp core download --locale=fr_FR --allow-root
 
-wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB
+wp config create --dbname=wordpress --dbuser=root --dbpass=Input_Mot_passe_DB --allow-root
 
-wp db create --dbhost=localhost --dbuser=root --dbpass=Input_Mot_passe_DB --dbcharset=utf8 --dbcollate=utf8_unicode_ci
+wp db create --allow-root
 
-wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin
+wp core install --title=Input_nom_dossier_wordpress --admin_user=Input_nom_utilisateur_admin --admin_password=Input_Mot_passe_admin --admin_email=Input_email_utilisateur_admin --allow-root
 
 
 

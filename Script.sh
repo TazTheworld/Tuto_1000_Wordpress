@@ -82,8 +82,8 @@ cat <<EOF > /phpmyadmin.conf
 </Directory>
 EOF
 
-# Activation du virtualhost pour phpMyAdmin et redémarrage d'Apache
-a2ensite /etc/apache2/sites-available/phpmyadmin.config
+cd /etc/apache2/sites-available/
+a2ensite /phpmyadmin.config
 
 systemctl restart apache2
 
