@@ -65,10 +65,6 @@ sed -i '/max_input_time/c\max_input_time = 60000' /etc/php/7.4/apache2/php.ini
 # Redémarrage de PHP-FPM
 systemctl restart php7.4-fpm
 
-# Exécuter la commande mysql avec le mot de passe
-
-
-
 # Exécution des commandes MySQL avec le mot de passe automatique
 mysql --user="$nom_utilisateur" --password="$motdepasse" <<EOF
 USE mysql;
@@ -111,9 +107,9 @@ for ((i=2;i<=1000;i++)); do
         fi
 
         # Modification des fichiers de configuration
-        sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/wordpress.conf
-        sed -i "s/wordpress/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
-        sed -i "s/wordpress/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
+        sed -i "s/wordpress$i/g" /etc/apache2/sites-available/wordpress.conf
+        sed -i "s/wordpress$i/g" /etc/apache2/sites-available/phpmyadmin.conf
+        sed -i "s/wordpress$i/g" /var/www/html/wordpress$i/wp-config.php
 
         echo "wordpress$i"
     fi
