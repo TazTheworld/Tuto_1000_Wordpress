@@ -6214,6 +6214,26 @@ CREATE TABLE `wordpress59`.`pma__bookmark` (
   `query` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
 
+Erreur
+
+Requête SQL : Éditer Éditer
+
+CREATE TABLE `wordpress70`.`wp_actionscheduler_actions` (
+  `action_id` bigint(20) UNSIGNED NOT NULL,
+  `hook` varchar(191) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `scheduled_date_gmt` datetime DEFAULT '0000-00-00 00:00:00',
+  `scheduled_date_local` datetime DEFAULT '0000-00-00 00:00:00',
+  `args` varchar(191) DEFAULT NULL,
+  `schedule` longtext DEFAULT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `last_attempt_gmt` datetime DEFAULT '0000-00-00 00:00:00',
+  `last_attempt_local` datetime DEFAULT '0000-00-00 00:00:00',
+  `claim_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `extended_args` varchar(8000) DEFAULT NULL,
+  `priority` tinyint(3) UNSIGNED NOT NULL DEFAULT 10
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 
 
